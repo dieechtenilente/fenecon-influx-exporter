@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ "master" ]
   workflow_dispatch:
+  schedule:
+  - cron: "0 6 1 * 0"
 
 jobs:
 
@@ -29,8 +31,10 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ghcr.io/${{ github.repository }}/fenecon-influx-exporter:$(date +'%y%m%d%h') .
+        docker build -t ghcr.io/${{ github.repository }}/fenecon-influx-exporter:$(date +'%y%m%d') .
+        docker build -t ghcr.io/${{ github.repository }}/fenecon-influx-exporter:latest .
 
     - name: Push Docker image
       run: |
-        docker push ghcr.io/${{ github.repository }}/fenecon-influx-exporter:$(date +'%y%m%d%h')
+        docker push ghcr.io/${{ github.repository }}/fenecon-influx-exporter:$(date +'%y%m%d')
+        docker push ghcr.io/${{ github.repository }}/fenecon-influx-exporter:latest
