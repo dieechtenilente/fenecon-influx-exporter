@@ -1,0 +1,11 @@
+services:
+  fenecon-crawler:
+    container_name: fenecon-crawler
+    image: fenecon-crawler
+    restart: always
+    environment:
+      - FENECON_IP=1.2.3.4
+      - INFLUXDB_SERVER=influxdb2.local
+      - INFLUXDB_TOKEN=aaasecrettoken==
+      - INFLUXDB_ORG=org
+      - INFLUXDB_BUCKET=bucket
