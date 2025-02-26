@@ -1,8 +1,8 @@
 services:
   fenecon-crawler:
     container_name: fenecon-crawler
-    image: fenecon-crawler
-    restart: always
+    image: ghcr.io/dieechtenilente/fenecon-influx-exporter/fenecon-influx-exporter:250226feb
+    restart: unless-stopped
     environment:
       - FENECON_IP=1.2.3.4
       - INFLUXDB_SERVER=influxdb2.local
