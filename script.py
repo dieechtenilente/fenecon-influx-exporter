@@ -84,10 +84,10 @@ def fetch_data():
                 writer.write(bucket=InfluxDBbucket, record=[p])
                 #print("Wrote " +(str(p)) + " to influxdb")
 
-            except InfluxDBError as e:
-                print(e)
             except urllib3.exceptions.ReadTimeoutError as e:
                 print("Read timeout" + e)
+            except Exception as e:
+                print(e)
 
 while True:
     print(str(datetime.now()) + " - Fetching data")
