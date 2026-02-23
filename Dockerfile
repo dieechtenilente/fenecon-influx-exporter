@@ -11,7 +11,9 @@ RUN apt update && apt upgrade -y
 RUN apt install -y python3 python3.11-venv python3-pip && rm -rf /var/lib/apt/lists/*
 
 # Remove unused packages
-RUN apt remove libpam-motd  -y; apt autoremove -y
+RUN apt remove libpam-motd -y
+RUN apt remove x11-common lighttpd ldap-utils libpam-motd gcc cpp manpages libx11-6 krb5-locales fonts-dejavu-core -y
+RUN apt autoremove -y
 
 RUN mkdir -p /opt/script/venv
 
