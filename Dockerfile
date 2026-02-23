@@ -4,8 +4,15 @@ FROM debian:bookworm-slim
 # Set environment variables to non-interactive (to avoid prompts during installation)
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Remove unused packages
+RUN apt remove x11-common lighttpd ldap-utils libpam-motd gcc cpp manpages libx11-6 krb5-locales fonts-dejavu-core -y
+RUN apt autoremove -y
+RUN apt autoremove -y
+
+# Update sources and packages
 RUN apt update && apt upgrade -y
 
+# Install Python3 
 RUN apt install -y python3 python3.11-venv python3-pip && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /opt/script/venv
