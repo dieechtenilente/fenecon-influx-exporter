@@ -85,9 +85,9 @@ def fetch_data():
                 #print("Wrote " +(str(p)) + " to influxdb")
 
             except urllib3.exceptions.ReadTimeoutError as e:
-                print("Read timeout" + e)
+                print("Read timeout" + str(e))
             except Exception as e:
-                print(e)
+                print(str(e))
 
 while True:
     print(str(datetime.now()) + " - Fetching data")
