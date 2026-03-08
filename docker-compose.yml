@@ -1,7 +1,7 @@
 services:
   fenecon-crawler:
     container_name: fenecon-crawler
-    image: ghcr.io/dieechtenilente/fenecon-influx-exporter/fenecon-influx-exporter:250226feb
+    image: ghcr.io/dieechtenilente/fenecon-influx-exporter/fenecon-influx-exporter
     restart: unless-stopped
     environment:
       - FENECON_IP=1.2.3.4
