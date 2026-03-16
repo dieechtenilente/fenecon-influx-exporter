@@ -11,5 +11,3 @@ jobs:
     steps:
       - name: Keepalive step
         run: echo "Keeping GitHub Actions active"
-
-Why this works
