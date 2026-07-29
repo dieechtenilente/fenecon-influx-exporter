@@ -8,9 +8,6 @@ import urllib3
 from influxdb_client import InfluxDBClient, Point, WriteOptions
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-# Variables
-SLEEP = 10
-
 # Parse Parameters
 
 # Set up the argument parser
@@ -22,6 +19,7 @@ parser.add_argument("--InfluxDBserver", type=str, help="InfluxDB server address.
 parser.add_argument("--InfluxDBtoken", type=str, help="InfluxDB token.")
 parser.add_argument("--InfluxDBorg", type=str, help="InfluxDB organization.")
 parser.add_argument("--InfluxDBbucket", type=str, help="InfluxDB bucket.")
+parser.add_argument("--polling", type=int, help="Polling interval.")
 
 # Parse the arguments
 args = parser.parse_args()
@@ -32,6 +30,7 @@ InfluxDBserver = args.InfluxDBserver
 InfluxDBorg = args.InfluxDBorg
 InfluxDBtoken = args.InfluxDBtoken
 InfluxDBbucket = args.InfluxDBbucket
+SLEEP = args.polling
 
 print(f"feneconIP: {feneconIP}")
 print(f"InfluxDBserver: {InfluxDBserver}")
