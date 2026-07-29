@@ -19,5 +19,5 @@ ENTRYPOINT /opt/script/venv/bin/python3 /opt/script/script.py --feneconIP $FENEC
                        --InfluxDBserver $INFLUXDB_SERVER \
                        --InfluxDBtoken $INFLUXDB_TOKEN \
                        --InfluxDBorg $INFLUXDB_ORG \
-                       --InfluxDBbucket $INFLUXDB_BUCKET
+                       --InfluxDBbucket $INFLUXDB_BUCKET \
                        --polling $POLLING
