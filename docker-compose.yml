@@ -9,3 +9,4 @@ services:
       - INFLUXDB_TOKEN=aaasecrettoken==
       - INFLUXDB_ORG=org
       - INFLUXDB_BUCKET=bucket
+      - POLLING=30
