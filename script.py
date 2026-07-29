@@ -1,5 +1,5 @@
 from json import loads
-from requests import get
+import requests
 from time import sleep
 from datetime import datetime
 import argparse
@@ -68,26 +68,31 @@ datapoints = ["State",
                 "GridMode"
                 ]
 
+# Create InfluxDBClient
+client = InfluxDBClient(url=f"https://{InfluxDBserver}/", token=InfluxDBtoken, org=InfluxDBorg)
+
 # Fetching function
 def fetch_data():
+    points = []
     for datapoint in datapoints:
-        response = get(f"http://{feneconIP}/rest/channel/_sum/" + datapoint, auth=("x", "user"))
+        session = requests.Session()
+        session.auth = ("x", "user")
+        response = session.get(f"http://{feneconIP}/rest/channel/_sum/{datapoint}")
         #print(response.text)
 
         data = loads(response.text)
 
-        p = Point("fenecon").tag("address", data["address"]).field("value", data["value"])
+        points.append(Point("fenecon").tag("address", data["address"]).field("value", data["value"]))
 
-        client = InfluxDBClient(url=f"https://{InfluxDBserver}/", token=InfluxDBtoken, org=InfluxDBorg)
-        with client.write_api(write_options=SYNCHRONOUS) as writer:
-            try:
-                writer.write(bucket=InfluxDBbucket, record=[p])
-                #print("Wrote " +(str(p)) + " to influxdb")
+    with client.write_api(write_options=SYNCHRONOUS) as writer:
+        try:
+            writer.write(bucket=InfluxDBbucket, record=points)
+            #print("Wrote " +(str(p)) + " to influxdb")
 
-            except urllib3.exceptions.ReadTimeoutError as e:
-                print("Read timeout" + str(e))
-            except Exception as e:
-                print(str(e))
+        except urllib3.exceptions.ReadTimeoutError as e:
+            print("Read timeout" + str(e))
+        except Exception as e:
+            print(str(e))
 
 while True:
     print(str(datetime.now()) + " - Fetching data")
