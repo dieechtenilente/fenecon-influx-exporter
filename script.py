@@ -70,12 +70,15 @@ datapoints = ["State",
 # Create InfluxDBClient
 client = InfluxDBClient(url=f"https://{InfluxDBserver}/", token=InfluxDBtoken, org=InfluxDBorg)
 
+# Create http session
+session = requests.Session()
+session.auth = ("x", "user")
+
 # Fetching function
 def fetch_data():
     points = []
     for datapoint in datapoints:
-        session = requests.Session()
-        session.auth = ("x", "user")
+
         response = session.get(f"http://{feneconIP}/rest/channel/_sum/{datapoint}")
         #print(response.text)
 
