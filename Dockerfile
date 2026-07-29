@@ -4,14 +4,11 @@ FROM debian:trixie-slim
 # Set environment variables to non-interactive (to avoid prompts during installation)
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Update sources and packages
-RUN apt update && apt upgrade -y
-
 # Install Python3 
 RUN apt install -y --no-install-recommends python3 python3.13-venv python3-pip && rm -rf /var/lib/apt/lists/*
 
 # Remove unused packages
-RUN apt remove libpam-motd x11-common lighttpd ldap-utils libpam-motd gcc cpp manpages libx11-6 krb5-locales fonts-dejavu-core -y
+RUN apt remove libpam-motd  libpam-motd -y
 RUN apt autoremove -y
 
 RUN mkdir -p /opt/script/venv
