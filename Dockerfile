@@ -1,5 +1,5 @@
 # Use Debian bookworm slim image
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 # Set environment variables to non-interactive (to avoid prompts during installation)
 ENV DEBIAN_FRONTEND=noninteractive
@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt upgrade -y
 
 # Install Python3 
-RUN apt install -y python3 python3.14-venv python3-pip && rm -rf /var/lib/apt/lists/*
+RUN apt install -y --no-install-recommends python3 python3.14-venv python3-pip && rm -rf /var/lib/apt/lists/*
 
 # Remove unused packages
 RUN apt remove libpam-motd x11-common lighttpd ldap-utils libpam-motd gcc cpp manpages libx11-6 krb5-locales fonts-dejavu-core -y
